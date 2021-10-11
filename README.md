@@ -1,1 +1,2 @@
-# Poker-odd-calc
+# base_project_for_frontend
+
