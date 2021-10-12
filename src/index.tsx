@@ -15,7 +15,6 @@ const tagManagerArgs = { gtmId: 'GTM-K3GMPSF' };
 TagManager.initialize(tagManagerArgs);
 
 function Parent(): ReactElement {
-  console.log(document.body);
   return (
     <>
       <Provider store={store}>

@@ -2,36 +2,8 @@ import React, { ReactElement } from 'react';
 import { TexasHoldem } from '../../poker-odds-calc/index';
 // import { s100, s40 } from "./button";
 
-// function sortPreflop(preflop: any[]): any[] {
-//   const cards = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
-//   const mast = ['h', 'c', 'd', 's'];
-
-//   const arr = preflop.map((item) => {
-//     const a = cards.indexOf(item.slice(0, 1));
-//     const b = cards.indexOf(item.slice(2, 3));
-
-//     if (a === b) {
-//       console.log(item, '  ', mast.indexOf(item.slice(1, 2)), '  ', mast.indexOf(item.slice(3)));
-//       if (mast.indexOf(item.slice(1, 2)) > mast.indexOf(item.slice(3))) {
-//         return `${item.slice(2)}${item.slice(0, 2)}`;
-//       }
-//     } else if (a > b) {
-//       return `${item.slice(2)}${item.slice(0, 2)}`;
-//     }
-//     return item;
-//   });
-
-//   arr.sort((a, b) => {
-//     console.log(a, ' - ', b, '  ', a - b);
-//     return a - b;
-//   });
-//   console.log(arr);
-//   return [];
-// }
-
 function Home(): ReactElement {
   const arr: any[] = [];
-
   // const [arr, setArr] = React.useState([]);
   // const cards = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
 
@@ -100,6 +72,51 @@ function Home(): ReactElement {
   //     )}--------------------------`,
   //   );
   // }
+
+  function getScriptPath(foo: any): any {
+    const fooStr = foo.toString();
+    return window.URL.createObjectURL(
+      new Blob([fooStr.slice(0, fooStr.length - 1).slice(8)], { type: 'text/javascript' }),
+    );
+  }
+
+  const MAX_VALUE = 10000;
+
+  function newWorker(self: any): any {
+    return new Worker(
+      getScriptPath(() => {
+        self.addEventListener(
+          'message',
+          (e: any) => {
+            let value = 0;
+            while (value <= e.data) {
+              self.postMessage(value);
+              value += 1;
+            }
+          },
+          false,
+        );
+      }),
+    );
+  }
+
+  for (let i = 1; i < 9; i += 1) {
+    console.log(window.self);
+    const workerNew = newWorker(window.self);
+    const divEl = document.createElement('div');
+    divEl.setAttribute('id', `result${i}`);
+    document.body.appendChild(divEl);
+
+    workerNew.addEventListener(
+      'message',
+      (e: any) => {
+        document.getElementById(`result${i}`).innerHTML = e.data;
+      },
+      false,
+    );
+
+    workerNew.postMessage(MAX_VALUE);
+  }
 
   return (
     <ul>
