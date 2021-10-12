@@ -2,7 +2,6 @@
   "env": {
     "browser": true,
     "es6": true,
-
     "node": true
   },
   "extends": [
@@ -21,6 +20,7 @@
   },
   "plugins": ["@typescript-eslint", "import", "react"],
   "rules": {
+    "no-restricted-globals":"off",
     "@typescript-eslint/no-explicit-any": "off", //Надо удалить
     "import/no-unresolved": [2, { "caseSensitive": false }],
     "no-use-before-define": "off",

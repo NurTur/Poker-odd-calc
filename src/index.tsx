@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 import TagManager from 'react-gtm-module';
 // import { Helmet } from 'react-helmet';
@@ -14,17 +14,15 @@ import '@/index.scss';
 const tagManagerArgs = { gtmId: 'GTM-K3GMPSF' };
 TagManager.initialize(tagManagerArgs);
 
-ReactDOM.render(
-  <Provider store={store}>
-    {/* <Helmet>
-      <link rel="apple-touch-icon" sizes="180x180" href={IconTouch} />
-      <link rel="icon" type="image/png" sizes="32x32" href={Icon32} />
-      <link rel="icon" type="image/png" sizes="16x16" href={Icon16} />
-      <link rel="mask-icon" href={Safari} color="#439e45" />
-      <meta name="msapplication-TileColor" content="#00aba9" />
-      <meta name="theme-color" content="#ffffff" />
-    </Helmet> */}
-    <Routes />
-  </Provider>,
-  document.getElementById('app'),
-);
+function Parent(): ReactElement {
+  console.log(document.body);
+  return (
+    <>
+      <Provider store={store}>
+        <Routes />
+      </Provider>
+    </>
+  );
+}
+
+ReactDOM.render(<Parent />, document.getElementById('app'));
