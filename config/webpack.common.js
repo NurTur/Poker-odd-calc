@@ -14,7 +14,7 @@ const ESLintPlugin = new _ESLintPlugin({
 });
 
 module.exports = {
-  entry: APP_DIR + "/index.tsx",
+  entry: ['@babel/polyfill',APP_DIR ],
   mode: "development",
   module: {
     rules: [
@@ -33,8 +33,8 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".json", ".css"],
     alias: {
-      '@': path.resolve(__dirname, "../src"),
-      'public': path.resolve(__dirname, "../public"),
+      '@': APP_DIR,
+      'public': PUB_DIR,
       
     },
   },

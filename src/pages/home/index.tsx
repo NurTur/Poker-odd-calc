@@ -10,10 +10,10 @@ function Home(): ReactElement {
   // const mast = ['h', 'c', 'd', 's'];
   // let u = 0;
 
-  const Table = new TexasHoldem();
+  // const Table = new TexasHoldem();
 
   // Table.addPlayer(['Ts', 'Js']).addPlayer(['5s', '5h']);
-  console.log(Table);
+  // console.log(Table);
   // const Result = Table.calculate();
   // console.log(Result);
 
@@ -75,8 +75,14 @@ function Home(): ReactElement {
 
   function getScriptPath(foo: any): any {
     const fooStr = foo.toString();
+
+    console.log(
+      window.URL.createObjectURL(
+        new Blob([fooStr.slice(0, fooStr.length - 1).slice(13)], { type: 'text/javascript' }),
+      ),
+    );
     return window.URL.createObjectURL(
-      new Blob([fooStr.slice(0, fooStr.length - 1).slice(8)], { type: 'text/javascript' }),
+      new Blob([fooStr.slice(0, fooStr.length - 1).slice(13)], { type: 'text/javascript' }),
     );
   }
 
@@ -88,10 +94,20 @@ function Home(): ReactElement {
         self.addEventListener(
           'message',
           (e: any) => {
+            function arrFunc(value: number): number {
+              return value + 1;
+            }
+
+            function rrr():any {
+              console.log(new TexasHoldem());
+              return 'sss';
+            }
+
+            console.log(rrr());
             let value = 0;
             while (value <= e.data) {
               self.postMessage(value);
-              value += 1;
+              value = arrFunc(value);
             }
           },
           false,

@@ -18,6 +18,7 @@
   "author": "Traffic Wave",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@types/lodash": "^4.14.175",
     "@types/node": "^16.10.3",
